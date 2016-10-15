@@ -445,6 +445,8 @@ typedef void (^MBProgressHUDCompletionBlock)();
  */
 @property (assign, getter = isSquare) BOOL square;
 
+- (UIView *)boxBackgroundView;
+
 @end
 
 

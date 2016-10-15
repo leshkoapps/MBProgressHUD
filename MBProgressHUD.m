@@ -61,6 +61,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	id objectForExecution;
 	UILabel *label;
 	UILabel *detailsLabel;
+    UIView *boxBgView;
 	BOOL isFinished;
 	CGAffineTransform rotationTransform;
 }
@@ -471,6 +472,10 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	detailsLabel.font = self.detailsLabelFont;
 	detailsLabel.text = self.detailsLabelText;
 	[self addSubview:detailsLabel];
+    
+    boxBgView = [[UIView alloc] init];
+    boxBgView.clipsToBounds = YES;
+    [self insertSubview:boxBgView atIndex:0];
 }
 
 - (void)updateIndicators {
@@ -607,6 +612,16 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	}
 	
 	size = totalSize;
+    
+    CGRect allRect = self.bounds;
+    CGRect boxRect = CGRectMake(round((allRect.size.width - size.width) / 2) + self.xOffset,
+                                round((allRect.size.height - size.height) / 2) + self.yOffset, size.width, size.height);
+    [boxBgView setFrame:boxRect];
+    boxBgView.layer.cornerRadius = self.cornerRadius;
+}
+
+- (UIView *)boxBackgroundView{
+    return boxBgView;
 }
 
 #pragma mark BG Drawing
