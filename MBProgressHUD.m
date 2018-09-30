@@ -457,6 +457,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	label.opaque = NO;
 	label.backgroundColor = [UIColor clearColor];
 	label.textColor = self.labelColor;
+    label.numberOfLines = 0;
 	label.font = self.labelFont;
 	label.text = self.labelText;
 	[self addSubview:label];
@@ -547,7 +548,9 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	totalSize.width = MAX(totalSize.width, indicatorF.size.width);
 	totalSize.height += indicatorF.size.height;
 	
-	CGSize labelSize = MB_TEXTSIZE(label.text, label.font);
+    CGFloat remainingHeight = bounds.size.height - totalSize.height - kPadding - 4 * margin;
+    CGSize maxSize = CGSizeMake(maxWidth, remainingHeight);
+	CGSize labelSize = MB_MULTILINE_TEXTSIZE(label.text, label.font, maxSize, label.lineBreakMode);
 	labelSize.width = MIN(labelSize.width, maxWidth);
 	totalSize.width = MAX(totalSize.width, labelSize.width);
 	totalSize.height += labelSize.height;
@@ -555,8 +558,8 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 		totalSize.height += kPadding;
 	}
 
-	CGFloat remainingHeight = bounds.size.height - totalSize.height - kPadding - 4 * margin; 
-	CGSize maxSize = CGSizeMake(maxWidth, remainingHeight);
+	remainingHeight = bounds.size.height - totalSize.height - kPadding - 4 * margin;
+	maxSize = CGSizeMake(maxWidth, remainingHeight);
 	CGSize detailsLabelSize = MB_MULTILINE_TEXTSIZE(detailsLabel.text, detailsLabel.font, maxSize, detailsLabel.lineBreakMode);
 	totalSize.width = MAX(totalSize.width, detailsLabelSize.width);
 	totalSize.height += detailsLabelSize.height;
