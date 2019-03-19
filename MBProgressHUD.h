@@ -447,6 +447,10 @@ typedef void (^MBProgressHUDCompletionBlock)();
 
 - (UIView *)boxBackgroundView;
 
+- (UILabel *)label;
+
+- (UILabel *)detailsLabel;
+
 @end
 
 

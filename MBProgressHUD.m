@@ -479,6 +479,14 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
     [self insertSubview:boxBgView atIndex:0];
 }
 
+- (UILabel *)label{
+    return label;
+}
+
+- (UILabel *)detailsLabel{
+    return detailsLabel;
+}
+
 - (void)updateIndicators {
 	
 	BOOL isActivityIndicator = [indicator isKindOfClass:[UIActivityIndicatorView class]];
